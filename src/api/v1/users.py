@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from src.infrastructure.services import FastAPIUserService
+from src.api.schemas import CreateUserSchema
 
 router = APIRouter(prefix="/users")
 
@@ -7,8 +8,13 @@ router = APIRouter(prefix="/users")
 def get_all_users():
     return FastAPIUserService().get_all_users()
 
+@router.get("/{id}", tags = ["users"])
+def get_user_by_id(id: int):
+    return FastAPIUserService().get_user_by_id(id)
+
 @router.post("/", tags = ["users"])
-def create_user(user):
+def create_user(user: CreateUserSchema):
+    print(user, "user recieved")
     return user
 
 @router.delete("/{id}", tags= ["users"])

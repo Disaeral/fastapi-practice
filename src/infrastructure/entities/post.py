@@ -1,7 +1,7 @@
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 from sqlalchemy import BIGINT, VARCHAR, ForeignKey
-from base import Base
-from mixins import Timestamp
+from .base import Base
+from .mixins import Timestamp
 
 class Post(Base, Timestamp):
     __tablename__ = "posts"

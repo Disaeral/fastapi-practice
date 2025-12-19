@@ -1,8 +1,7 @@
+from src.api import router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.infrastructure import Database
 from src.core.config import config
-from src.api import router
 
 def init_cors(app: FastAPI) -> None:
     app.add_middleware(
@@ -12,9 +11,6 @@ def init_cors(app: FastAPI) -> None:
         allow_methods=["*"],
         allow_headers=["*"],
     )
-
-def init_db() -> Database:
-    return Database(config)
 
 def init_routers(app: FastAPI) -> None:
     app.include_router(router)
@@ -37,5 +33,4 @@ def create_app() -> FastAPI:
     init_middleware(app)
     return app
 
-db = init_db()
 app = create_app()

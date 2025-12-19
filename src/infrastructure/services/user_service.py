@@ -10,7 +10,7 @@ class FastAPIUserService(UserService):
         self.repository:UserRepository = SQLAlchemyUserRepository()
 
     def create_user(self, user: User) -> User:
-        return user
+        return self.repository.create(user)
     
     def update_user(self, user: User) -> User:
         return user
@@ -19,7 +19,7 @@ class FastAPIUserService(UserService):
         return self.repository.get_all()
     
     def get_user_by_id(self, id: int) -> User | None:
-        return 
+        return self.repository.get_by_id(id)
     
     def delete_user(self, id: int) -> int:
         return id

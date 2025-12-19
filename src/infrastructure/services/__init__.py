@@ -1,4 +1,4 @@
-from user_service import *
+from .user_service import *
 
 __all__ = [
     "FastAPIUserService"

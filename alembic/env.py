@@ -3,7 +3,7 @@ from os import getenv
 from dotenv import load_dotenv
 from sqlalchemy import URL, engine_from_config
 from sqlalchemy import pool
-from app.db.models.base import Base
+from src.infrastructure.entities import Base
 from alembic import context
 
 load_dotenv()
@@ -16,7 +16,6 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-print(config.config_file_name)
 
 url = URL.create(
         drivername="postgresql+psycopg2",

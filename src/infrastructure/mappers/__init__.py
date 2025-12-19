@@ -1,4 +1,4 @@
-from user_mapper import *
+from .user_mapper import *
 
 __all__ = [
     "UserMapper"

@@ -1,4 +1,4 @@
-from user_repository import *
+from .user_repository import *
 
 __all__ = [
     "SQLAlchemyUserRepository"

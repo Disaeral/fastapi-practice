@@ -1,5 +1,5 @@
-from .v1 import posts, users, root
 from fastapi import APIRouter
+from src.api.v1 import posts, users, root
 
 router = APIRouter(prefix="/v1")
 router.include_router(posts.router)
