@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from src.core.dto import CreateUserDTO, UpdateUserDTO, UserDTO
+from src.core.dto import CreateUserDTO, UpdateUserDTO, LoginUserDTO
 from src.infrastructure.services import FastAPIUserService
 from dishka.integrations.fastapi import FromDishka, DishkaRoute
 
@@ -20,6 +20,10 @@ def create_user(
 ):
     print(user, "user recieved")
     return user_service.create_user(user)
+
+@router.post("/login", tags = ["auth", "users"])
+def login_user(user: LoginUserDTO, user_service: FromDishka[FastAPIUserService]):
+    return user_service.login_user(user)
 
 @router.delete("/{id}", tags = ["users"])
 def delete_user(id: int, user_service: FromDishka[FastAPIUserService]):

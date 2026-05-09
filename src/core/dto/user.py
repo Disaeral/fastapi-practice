@@ -17,3 +17,7 @@ class UpdateUserDTO(BaseModel):
     username: str
     password: str
     is_banned: bool
+
+class LoginUserDTO(BaseModel):
+    username: str
+    password: str

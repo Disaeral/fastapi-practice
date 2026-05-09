@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import List, Optional
+from src.core.dto.user import LoginUserDTO
 from src.core.repositories import UserRepository
 from src.core.entities.user import User
 from src.core.services import UserService
@@ -12,6 +13,12 @@ class FastAPIUserService(UserService):
     def create_user(self, user) -> User:
         user.password = hash_sha265(user.password)
         return self.repository.create(user)
+    
+    def login_user(self, user: LoginUserDTO) -> None | str:
+        candidate = self.repository.get_by_username(user.username)
+        pass_recieved = hash_sha265(user.password)
+        if candidate and pass_recieved == candidate.password:
+            return "TOKEN"
     
     def update_user(self, id, user) -> Optional[User]:
         return self.repository.update(id, user)

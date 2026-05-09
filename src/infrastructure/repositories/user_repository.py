@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from typing import List, Callable
+from src.core.entities.user import User
 from src.infrastructure.entities import User as UserORM
 from src.core.repositories import UserRepository
 from src.core.mappers import Mapper
@@ -27,6 +28,12 @@ class SQLAlchemyUserRepository(UserRepository):
             res: UserORM | None = session.query(UserORM).filter(UserORM.id == id).first()
             if res is not None:
                 return self.mapper._to_domain(res)
+    
+    def get_by_username(self, username: str) -> User | None:
+        with self.session_factory() as session:
+            entity = session.query(UserORM).where(UserORM.username == username).first()
+            if entity:
+                return self.mapper._to_domain(entity)
 
     def update(self, id, user):
         with self.session_factory() as session:

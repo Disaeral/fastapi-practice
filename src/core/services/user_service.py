@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Optional, List
 from datetime import datetime
 from ..entities.user import User
-from ..dto import CreateUserDTO, UpdateUserDTO
+from ..dto import CreateUserDTO, UpdateUserDTO, LoginUserDTO
 
 class UserService(ABC):
     @abstractmethod
@@ -23,6 +23,10 @@ class UserService(ABC):
 
     @abstractmethod
     def create_user(self, user: CreateUserDTO) -> User:
+        pass
+
+    @abstractmethod
+    def login_user(self, user: LoginUserDTO) -> None | str:
         pass
 
     @abstractmethod
