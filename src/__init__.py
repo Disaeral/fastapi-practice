@@ -2,6 +2,9 @@ from src.api import router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.core.config import config
+from src.infrastructure import ApiAppProvider
+from dishka import make_async_container
+from dishka.integrations.fastapi import setup_dishka
 
 def init_cors(app: FastAPI) -> None:
     app.add_middleware(
@@ -13,8 +16,7 @@ def init_cors(app: FastAPI) -> None:
     )
 
 def init_routers(app: FastAPI) -> None:
-    app.include_router(router)
-    
+    app.include_router(router, prefix="/api")
 
 def init_middleware(app: FastAPI) -> None:
     pass
@@ -34,3 +36,9 @@ def create_app() -> FastAPI:
     return app
 
 app = create_app()
+container = make_async_container(ApiAppProvider())
+setup_dishka(container=container, app=app)
+
+# @app.on_event("shutdown")
+# async def shutdown_event():
+#     await container.close()

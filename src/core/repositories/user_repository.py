@@ -1,6 +1,7 @@
 from typing import List, Optional
 from abc import abstractmethod, ABC
 from ..entities.user import User
+from ..dto import CreateUserDTO, UpdateUserDTO
 
 class UserRepository(ABC):
     @abstractmethod
@@ -12,7 +13,7 @@ class UserRepository(ABC):
         pass
 
     @abstractmethod
-    def update(self, user: User) -> User:
+    def update(self, id: int, user: UpdateUserDTO) -> Optional[User]:
         pass
 
     @abstractmethod
@@ -20,5 +21,5 @@ class UserRepository(ABC):
         pass
 
     @abstractmethod
-    def create(self, user: User) -> User:
+    def create(self, user: CreateUserDTO) -> User:
         pass

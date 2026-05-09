@@ -1,13 +1,13 @@
 from typing import Optional
 from sqlalchemy.orm import mapped_column, Mapped, relationship
-from sqlalchemy import VARCHAR, BOOLEAN
+from sqlalchemy import VARCHAR, BOOLEAN, false
 from .base import Base
 from .mixins import Timestamp
 
 class User(Base, Timestamp):
     __tablename__ = "users"
-    username: Mapped[str]           = mapped_column(VARCHAR(30))
+    username: Mapped[str]           = mapped_column(VARCHAR(30), unique=True)
     password: Mapped[str]           = mapped_column(VARCHAR(255))
     fullname: Mapped[Optional[str]] = mapped_column(VARCHAR(255))
-    is_banned: Mapped[bool]         = mapped_column(BOOLEAN)
-    posts = relationship("Post", back_populates="user")
+    is_banned: Mapped[bool]         = mapped_column(BOOLEAN, unique=False, server_default=false())
+    posts                           = relationship("Post", back_populates="user")
